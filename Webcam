@@ -1,1 +1,24 @@
-
+import matplotlib.pyplot as plt 
+import numpy as np 
+import os 
+import cv2 #computer vision
+import time
+cap = cv2.VideoCapture(0) # Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'XVID') 
+fname = 'webcam.mp4' 
+out = cv2.VideoWriter(fname,fourcc, 20.0, (640,480)) 
+interval = 15  # secs 
+timeout = time.time() + interval 
+while(cap.isOpened()):    
+    ret, frame = cap.read()    
+    if ret==True:        
+        out.write(frame)        
+        cv2.imshow('frame',frame)        
+        if (cv2.waitKey(1) & 0xFF == ord('q')) or (time.time() > timeout):            
+            break    
+        else:        
+            break # Release everything if job is finished 
+cap.release() 
+out.release() 
+cv2.destroyAllWindows() 
+print('saved file {}'.format(fname))
